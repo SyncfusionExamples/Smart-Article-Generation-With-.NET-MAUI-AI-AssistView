@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:conv="clr-namespace:AssistViewArticleGenerationSample.Converters"
+             xmlns:views="clr-namespace:AssistViewArticleGenerationSample.Views"
+             x:Class="AssistViewArticleGenerationSample.Views.ResourcePanel">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <conv:InverseBoolConverter x:Key="InverseBoolConverter" />
+            <conv:IsNotNullOrEmptyConverter x:Key="IsNotNullOrEmptyConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <Grid RowDefinitions="Auto,*" Padding="0">
+        <!-- Header -->
+        <Grid Grid.Row="0"
+              Padding="0,12"
+              ColumnDefinitions="*,Auto,Auto">
+            <StackLayout Grid.Column="0" Spacing="2" VerticalOptions="Center">
+                <Label Text="Article Sources"
+                       FontSize="18"
+                       FontFamily="Roboto-Regular"
+                       FontAttributes="None"
+                       TextColor="#333333"
+                       Margin="0,0,0,0"
+                       Padding="0,8,0,4" />
+                <Label Text="{Binding Resources.Count, StringFormat='Added {0} source(s)'}"
+                       FontSize="14"
+                       FontFamily="Roboto-Regular"
+                       TextColor="#666666"
+                       Margin="0,0,0,0" />
+            </StackLayout>
+            <Label Grid.Column="1"
+                   Text="Add Source"
+                   FontSize="14"
+                   FontFamily="Roboto-Regular"
+                   TextColor="#6750A4"
+                   FontAttributes="None"
+                   VerticalOptions="Center"
+                   Margin="10,0,4,0">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding AddResourceCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+            <Label Grid.Column="2"
+                   Text="&#xE71B;"
+                   FontFamily="MauiSampleFontIcon"
+                   FontSize="20"
+                   TextColor="#6750A4"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Start"
+                   Margin="0,0,10,0">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding AddResourceCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+        </Grid>
+
+        <!-- Resources List - Horizontal Scrolling -->
+        <CollectionView Grid.Row="1"
+                       ItemsSource="{Binding Resources}"
+                       SelectionMode="None"
+                       HeightRequest="175"
+                       Margin="0,4,0,12"
+                       VerticalOptions="Start">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Padding="12" WidthRequest="260" Margin="8,8,8,14">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type views:ResourcePanel}}, Path=BindingContext.ResourceSelectedCommand}"
+                              CommandParameter="{Binding .}" />
+                        </StackLayout.GestureRecognizers>
+                        <Border Padding="14"
+                                StrokeThickness="0"
+                                Background="#FFFFFF"
+                                HeightRequest="148">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="10"></RoundRectangle>
+                            </Border.StrokeShape>
+                            <StackLayout Spacing="4">
+                                <!-- Resource Header with Delete Button -->
+                                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="4">
+                                    <Label Text="{Binding Icon}"
+                                           FontSize="18"
+                                           FontFamily="Segoe UI Emoji"
+                                           VerticalOptions="Center" />
+                                    <Label Grid.Column="1"
+                                           Text="{Binding Title}"
+                                           FontSize="16"
+                                           FontFamily="Roboto-Regular"
+                                           FontAttributes="None"
+                                           TextColor="#1C1B1F"
+                                           LineBreakMode="TailTruncation"
+                                           VerticalTextAlignment="Start" />
+                                    <Label Grid.Column="2"
+                                           Text="&#xE73C;"
+                                           FontFamily="MauiSampleFontIcon"
+                                           FontSize="16"
+                                           TextColor="#CC3333"
+                                           VerticalOptions="Start"
+                                           HorizontalOptions="End"
+                                           Padding="6,0">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type views:ResourcePanel}}, Path=BindingContext.DeleteResourceCommand}"
+                                                                  CommandParameter="{Binding .}" />
+                                        </Label.GestureRecognizers>
+                                    </Label>
+                                </Grid>
+
+                                <!-- Source Type and Relevance -->
+                                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="6">
+                                    <Label Grid.Column="0"
+                                           Text="{Binding SourceType}"
+                                           FontSize="14"
+                                           FontFamily="Roboto-Regular"
+                                           TextColor="#666666" />
+                                    <Label Grid.Column="1"
+                                           Text="{Binding RelevanceScore, StringFormat='{0}%'}"
+                                           FontSize="11"
+                                           FontFamily="Roboto-Regular"
+                                           FontAttributes="None"
+                                           TextColor="#1E8E3E" />
+                                </Grid>
+
+                                <!-- URL - Clickable Link -->
+                                <Label Text="{Binding Url}"
+                                       FontSize="12"
+                                       FontFamily="Roboto-Regular"
+                                       TextColor="#6750A4"
+                                       TextDecorations="Underline"
+                                       LineBreakMode="TailTruncation"
+                                       IsVisible="{Binding Url, Converter={StaticResource IsNotNullOrEmptyConverter}}"
+                                       MaxLines="1">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type views:ResourcePanel}}, Path=BindingContext.OpenUrlCommand}"
+                                                              CommandParameter="{Binding Url}" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+
+                                <!-- Description (truncated) -->
+                                <Label Text="{Binding Description}"
+                                       FontSize="14"
+                                       FontFamily="Roboto-Regular"
+                                       TextColor="#555555"
+                                       LineBreakMode="WordWrap"
+                                       MaxLines="2" />
+                            </StackLayout>
+                        </Border>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+            <!-- Empty State -->
+            <CollectionView.EmptyView>
+                <StackLayout Padding="20"
+                             VerticalOptions="Center"
+                             HorizontalOptions="Center"
+                             Spacing="10">
+                    <Label Text=""
+                           FontSize="40"
+                           HorizontalOptions="Center" />
+                    <Label Text="No Resources Yet"
+                           FontSize="12"
+                           FontFamily="Roboto-Regular"
+                           FontAttributes="Bold"
+                           TextColor="#666666"
+                           HorizontalOptions="Center" />
+                    <Label Text="Add resources to get started"
+                           FontSize="10"
+                           FontFamily="Roboto-Regular"
+                           TextColor="#999999"
+                           HorizontalOptions="Center"
+                           HorizontalTextAlignment="Center" />
+                </StackLayout>
+            </CollectionView.EmptyView>
+        </CollectionView>
+    </Grid>
+</ContentView>
