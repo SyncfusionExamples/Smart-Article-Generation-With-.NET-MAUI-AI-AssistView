@@ -10,7 +10,8 @@
             <conv:IsNotNullOrEmptyConverter x:Key="IsNotNullOrEmptyConverter" />
         </ResourceDictionary>
     </ContentView.Resources>
-    <Grid RowDefinitions="Auto,*" Padding="0">
+    <!-- Prevent vertical stretching in desktop by content-wrapping the panel -->
+    <Grid RowDefinitions="Auto,Auto" Padding="0">
         <!-- Header -->
         <Grid Grid.Row="0"
               Padding="0,12"
@@ -63,16 +64,16 @@
                        Margin="0,4,0,12"
                        VerticalOptions="Start">
             <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10" />
+                <LinearItemsLayout Orientation="Horizontal" />
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <StackLayout Padding="12" WidthRequest="260" Margin="8,8,8,14">
+                    <StackLayout Padding="10" WidthRequest="260" Margin="4,8,4,12">
                         <StackLayout.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type views:ResourcePanel}}, Path=BindingContext.ResourceSelectedCommand}"
                               CommandParameter="{Binding .}" />
                         </StackLayout.GestureRecognizers>
-                        <Border Padding="14"
+                        <Border Padding="12"
                                 StrokeThickness="0"
                                 Background="#FFFFFF"
                                 HeightRequest="148">

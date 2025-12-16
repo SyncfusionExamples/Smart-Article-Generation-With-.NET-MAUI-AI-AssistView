@@ -487,9 +487,9 @@ namespace AssistViewArticleGenerationSample.ViewModels
             return $"Given User query: {userPrompt}." +
                    $"\nSome conditions need to follow:" +
                    $"\nGive heading of the topic and simplified answer like article draft content" +
-                   $"\nGive as string alone" +
+                   $"\nGive as string alone and length of words should be between 2000-4000" +
                    $"\nRemove ** and remove quotes if it is there in the string." +
-                   $"\nAt the end, add a References section listing 3-5 external sources as HTML links using <a href='URL'>Title</a>.";
+                   $"\nAt the end, add a References section listing 3-6 external sources as HTML links using <a href='URL'>Title</a>.";
         }
 
         /// <summary>

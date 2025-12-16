@@ -78,14 +78,16 @@
                                         </StackLayout>
                                     </Border>
                                     <!-- Content Grid -->
-                                    <Grid Grid.Row="1" Padding="0" ColumnDefinitions="0.62*,1,0.38*">
-                                        <!-- Left Panel with Background -->
-                                        <Grid Grid.Column="0" Padding="16,0,16,0" BackgroundColor="#F7F2FB">
-                                            <ScrollView Padding="0,0,16,0">
+                                    <Grid Grid.Row="1" Padding="0" ColumnDefinitions="7*,1,3*">
+                                        <!-- Left Panel with Background (desktop only) -->
+                                        <Grid Grid.Column="0" Padding="0" BackgroundColor="#F7F2FB">
+                                            <!-- Keep content inset but make background start at header edge -->
+                                            <ScrollView Padding="16,0,16,0">
                                                 <StackLayout Spacing="14" Padding="0,12,0,24">
                                                     <views:ResourcePanel Padding="0"
                                                                          Margin="0,0,0,0"
-                                                                         BindingContext="{TemplateBinding BindingContext}" />
+                                                                         BindingContext="{TemplateBinding BindingContext}"
+                                                                         VerticalOptions="Start" />
                                                     <StackLayout Spacing="6">
                                                         <Label Text="Article Draft"
                                                                FontSize="18"
@@ -94,7 +96,8 @@
                                                                TextColor="#333333"
                                                                Margin="0,0,0,0"
                                                                Padding="0,6,0,4" />
-                                                        <views:ChatView BindingContext="{TemplateBinding BindingContext}" />
+                                                        <views:ChatView BindingContext="{TemplateBinding BindingContext}"
+                                                                        VerticalOptions="Start" />
                                                     </StackLayout>
                                                 </StackLayout>
                                             </ScrollView>
