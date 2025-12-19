@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:conv="clr-namespace:AssistViewArticleGenerationSample.Converters"
              xmlns:views="clr-namespace:AssistViewArticleGenerationSample.Views"
+             xmlns:chip="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
              x:Class="AssistViewArticleGenerationSample.Views.ResourcePanel">
     <ContentView.Resources>
         <ResourceDictionary>
@@ -56,33 +57,38 @@
             </Label>
         </Grid>
 
-        <!-- Resources List - Horizontal Scrolling -->
-        <CollectionView Grid.Row="1"
-                       ItemsSource="{Binding Resources}"
-                       SelectionMode="None"
-                       HeightRequest="175"
-                       Margin="0,4,0,12"
-                       VerticalOptions="Start">
-            <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Horizontal" />
-            </CollectionView.ItemsLayout>
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <StackLayout Padding="10" WidthRequest="260" Margin="4,8,4,12">
-                        <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type views:ResourcePanel}}, Path=BindingContext.ResourceSelectedCommand}"
-                              CommandParameter="{Binding .}" />
-                        </StackLayout.GestureRecognizers>
+        <!-- Resources List replaced with Syncfusion Chips -->
+        <ScrollView Grid.Row="1"
+                    Orientation="Horizontal"
+                    HeightRequest="210"
+                    Margin="0,4,0,12"
+                    VerticalOptions="Start">
+            <chip:SfChipGroup
+                ItemsSource="{Binding Resources}"
+                ChipType="Action"
+                Command="{Binding ResourceSelectedCommand}"
+                ChipPadding="4,8,4,20"
+                ChipStrokeThickness="0"
+                ChipBackground="Transparent"
+                ChipCornerRadius="0">
+                <chip:SfChipGroup.ChipLayout>
+                    <FlexLayout Direction="Row" Wrap="NoWrap" AlignItems="Start" JustifyContent="Start" />
+                </chip:SfChipGroup.ChipLayout>
+                <chip:SfChipGroup.ItemTemplate>
+                    <DataTemplate>
                         <Border Padding="12"
                                 StrokeThickness="0"
                                 Background="#FFFFFF"
-                                HeightRequest="148">
+                                HeightRequest="160"
+                                WidthRequest="260"
+                                Margin="4,8,4,12">
+
                             <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="10"></RoundRectangle>
+                                <RoundRectangle CornerRadius="10" />
                             </Border.StrokeShape>
                             <StackLayout Spacing="4">
                                 <!-- Resource Header with Delete Button -->
-                                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="4">
+                                <Grid ColumnDefinitions="Auto,*,Auto,Auto" ColumnSpacing="4">
                                     <Label Text="{Binding Icon}"
                                            FontSize="18"
                                            FontFamily="Segoe UI Emoji"
@@ -95,7 +101,16 @@
                                            TextColor="#1C1B1F"
                                            LineBreakMode="TailTruncation"
                                            VerticalTextAlignment="Start" />
+                                    <!-- Relevance score at top-right like card UI -->
                                     <Label Grid.Column="2"
+                                           Text="{Binding RelevanceScore, StringFormat='{0}%'}"
+                                           FontSize="12"
+                                           FontFamily="Roboto-Regular"
+                                           TextColor="#1E8E3E"
+                                           VerticalOptions="Center"
+                                           HorizontalOptions="End"
+                                           Margin="0,0,6,0" />
+                                    <Label Grid.Column="3"
                                            Text="&#xE73C;"
                                            FontFamily="MauiSampleFontIcon"
                                            FontSize="16"
@@ -110,19 +125,13 @@
                                     </Label>
                                 </Grid>
 
-                                <!-- Source Type and Relevance -->
-                                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="6">
+                                <!-- Source Type -->
+                                <Grid ColumnDefinitions="*" ColumnSpacing="6">
                                     <Label Grid.Column="0"
                                            Text="{Binding SourceType}"
                                            FontSize="14"
                                            FontFamily="Roboto-Regular"
                                            TextColor="#666666" />
-                                    <Label Grid.Column="1"
-                                           Text="{Binding RelevanceScore, StringFormat='{0}%'}"
-                                           FontSize="11"
-                                           FontFamily="Roboto-Regular"
-                                           FontAttributes="None"
-                                           TextColor="#1E8E3E" />
                                 </Grid>
 
                                 <!-- URL - Clickable Link -->
@@ -149,33 +158,9 @@
                                        MaxLines="2" />
                             </StackLayout>
                         </Border>
-                    </StackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-
-            <!-- Empty State -->
-            <CollectionView.EmptyView>
-                <StackLayout Padding="20"
-                             VerticalOptions="Center"
-                             HorizontalOptions="Center"
-                             Spacing="10">
-                    <Label Text=""
-                           FontSize="40"
-                           HorizontalOptions="Center" />
-                    <Label Text="No Resources Yet"
-                           FontSize="12"
-                           FontFamily="Roboto-Regular"
-                           FontAttributes="Bold"
-                           TextColor="#666666"
-                           HorizontalOptions="Center" />
-                    <Label Text="Add resources to get started"
-                           FontSize="10"
-                           FontFamily="Roboto-Regular"
-                           TextColor="#999999"
-                           HorizontalOptions="Center"
-                           HorizontalTextAlignment="Center" />
-                </StackLayout>
-            </CollectionView.EmptyView>
-        </CollectionView>
+                    </DataTemplate>
+                </chip:SfChipGroup.ItemTemplate>
+            </chip:SfChipGroup>
+        </ScrollView>
     </Grid>
 </ContentView>
