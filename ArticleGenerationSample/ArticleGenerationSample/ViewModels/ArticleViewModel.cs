@@ -17,10 +17,29 @@ namespace ArticleGenerationSample.ViewModels
     {
         #region Fields
 
+        /// <summary>
+        /// Field to backing the Messages property.
+        /// </summary>
         private ObservableCollection<IAssistItem> messages;
+
+        /// <summary>
+        /// Field to backing the Resources property.
+        /// </summary>
         private ObservableCollection<Models.ResourceItem> resources;
+
+        /// <summary>
+        /// Field to backing the Topics property.
+        /// </summary>
         private ObservableCollection<string> topics;
+
+        /// <summary>
+        /// Field to backing the HasValidResponse property.
+        /// </summary>
         private bool _hasValidResponse = false;
+
+        /// <summary>
+        /// Field to backing the HtmlContent property.
+        /// </summary>
         private string _htmlContent = string.Empty;
         private string _researchQuestion = string.Empty;
         private string _selectedTopic = string.Empty;
@@ -117,6 +136,7 @@ namespace ArticleGenerationSample.ViewModels
         /// Sets the research question from a selected topic.
         /// </summary>
         public ICommand SelectTopicCommand { get; set; }
+
         #endregion
 
         #region Properties
@@ -286,6 +306,7 @@ namespace ArticleGenerationSample.ViewModels
                 return title;
             }
         }
+
         #endregion
 
         #region Command Methods
@@ -314,6 +335,7 @@ namespace ArticleGenerationSample.ViewModels
         {
             azureAIService = new AzureAIService();
         }
+
         /// <summary>
         /// Shows a simple notification indicating regenerate action.
         /// </summary>

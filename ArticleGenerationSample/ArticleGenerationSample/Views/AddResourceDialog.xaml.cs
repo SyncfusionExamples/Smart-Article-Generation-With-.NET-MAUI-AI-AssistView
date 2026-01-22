@@ -6,10 +6,16 @@ namespace ArticleGenerationSample.Views;
 /// </summary>
 public partial class AddResourceDialog : ContentPage
 {
+    #region Fields
+
     /// <summary>
     /// Task completion source used to return dialog results.
     /// </summary>
     private TaskCompletionSource<(string Url, string Title, string Description)>? _tcs;
+
+    #endregion
+
+    #region Constructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="AddResourceDialog"/> class.
@@ -18,6 +24,10 @@ public partial class AddResourceDialog : ContentPage
     {
         InitializeComponent();
     }
+
+    #endregion
+
+    #region Methods
 
     /// <summary>
     /// Handles the Cancel button click, closing the dialog and returning empty values.
@@ -71,4 +81,6 @@ public partial class AddResourceDialog : ContentPage
         await mainPage.Navigation.PushModalAsync(navPage);
         return await dialog._tcs.Task;
     }
+
+    #endregion
 }

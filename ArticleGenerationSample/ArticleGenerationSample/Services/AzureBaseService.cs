@@ -46,13 +46,26 @@ namespace ArticleGenerationSample.Services
         /// </summary>
         private ChatHistory? chatHistory;
 
+        /// <summary>
+        /// Field to store whether the credentials are valid
+        /// </summary>
         private static bool isCredentialValid = false;
 
+        /// <summary>
+        /// Field to store whether the credentials have already been validated
+        /// </summary>
         private static bool isAlreadyValidated = false;
 
+        /// <summary>
+        /// Field to store the URI result
+        /// </summary>
         private Uri? uriResult;
-        
+
         #endregion
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AzureBaseService"/> class.
+        /// </summary>
 
         public AzureBaseService()
         {
@@ -77,6 +90,9 @@ namespace ArticleGenerationSample.Services
             }
         }
 
+        /// <summary>
+        /// Gets or sets the chat history object
+        /// </summary>
         public ChatHistory? ChatHistory
         {
             get
@@ -89,6 +105,9 @@ namespace ArticleGenerationSample.Services
             }
         }
 
+        /// <summary>
+        /// Gets or sets the chat completion service object
+        /// </summary>
         public IChatCompletionService? ChatCompletions
         {
             get

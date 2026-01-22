@@ -37,6 +37,8 @@ namespace ArticleGenerationSample.Views
     /// </summary>
     public partial class CustomAssistView : Syncfusion.Maui.AIAssistView.SfAIAssistView
     {
+        #region Properties
+
         /// <summary>
         /// Bindable property backing store for <see cref="AssistChatView"/>.
         /// </summary>
@@ -52,6 +54,10 @@ namespace ArticleGenerationSample.Views
             set { this.SetValue(AssistChatViewProperty, value); }
         }
 
+        #endregion
+
+        #region Methods
+
         /// <summary>
         /// Creates the chat instance and stores it so it can be displayed in the template's right column.
         /// </summary>
@@ -61,5 +67,7 @@ namespace ArticleGenerationSample.Views
             AssistChatView = new CustomAssistViewChat(this);
             return AssistChatView;
         }
+
+        #endregion
     }
 }

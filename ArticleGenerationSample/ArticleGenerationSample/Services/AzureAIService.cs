@@ -14,6 +14,8 @@ namespace ArticleGenerationSample.Services
     /// </summary>
     public class AzureAIService : AzureBaseService
     {
+        #region Constructor
+
         /// <summary>
         /// Initializes a new instance of the <see cref="AzureAIService"/> class and prepares the client.
         /// </summary>
@@ -21,6 +23,10 @@ namespace ArticleGenerationSample.Services
         {
             InitializeClient();
         }
+
+        #endregion
+
+        #region Methods
 
         /// <summary>
         /// Reinitializes the chat history and primes the system message when credentials are valid.
@@ -88,6 +94,8 @@ namespace ArticleGenerationSample.Services
             }
             return "Please connect to your preferred AI service for real-time queries.";
         }
+
+        #endregion
 
         #endregion
 

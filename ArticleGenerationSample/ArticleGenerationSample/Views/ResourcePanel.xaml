@@ -12,12 +12,15 @@
         </ResourceDictionary>
     </ContentView.Resources>
     <!-- Prevent vertical stretching in desktop by content-wrapping the panel -->
-    <Grid RowDefinitions="Auto,Auto" Padding="0">
+    <Grid RowDefinitions="Auto,Auto"
+          Padding="0">
         <!-- Header -->
         <Grid Grid.Row="0"
               Padding="0,12"
               ColumnDefinitions="*,Auto,Auto">
-            <StackLayout Grid.Column="0" Spacing="2" VerticalOptions="Center">
+            <StackLayout Grid.Column="0"
+                         Spacing="2"
+                         VerticalOptions="Center">
                 <Label Text="Article Sources"
                        FontSize="18"
                        FontFamily="Roboto-Regular"
@@ -63,16 +66,18 @@
                     HeightRequest="210"
                     Margin="0,4,0,12"
                     VerticalOptions="Start">
-            <chip:SfChipGroup
-                ItemsSource="{Binding Resources}"
-                ChipType="Action"
-                Command="{Binding ResourceSelectedCommand}"
-                ChipPadding="4,8,4,20"
-                ChipStrokeThickness="0"
-                ChipBackground="Transparent"
-                ChipCornerRadius="0">
+            <chip:SfChipGroup ItemsSource="{Binding Resources}"
+                              ChipType="Action"
+                              Command="{Binding ResourceSelectedCommand}"
+                              ChipPadding="4,8,4,20"
+                              ChipStrokeThickness="0"
+                              ChipBackground="Transparent"
+                              ChipCornerRadius="0">
                 <chip:SfChipGroup.ChipLayout>
-                    <FlexLayout Direction="Row" Wrap="NoWrap" AlignItems="Start" JustifyContent="Start" />
+                    <FlexLayout Direction="Row"
+                                Wrap="NoWrap"
+                                AlignItems="Start"
+                                JustifyContent="Start" />
                 </chip:SfChipGroup.ChipLayout>
                 <chip:SfChipGroup.ItemTemplate>
                     <DataTemplate>
@@ -88,7 +93,8 @@
                             </Border.StrokeShape>
                             <StackLayout Spacing="4">
                                 <!-- Resource Header with Delete Button -->
-                                <Grid ColumnDefinitions="Auto,*,Auto,Auto" ColumnSpacing="4">
+                                <Grid ColumnDefinitions="Auto,*,Auto,Auto"
+                                      ColumnSpacing="4">
                                     <Label Text="{Binding Icon}"
                                            FontSize="18"
                                            FontFamily="Segoe UI Emoji"
@@ -126,7 +132,8 @@
                                 </Grid>
 
                                 <!-- Source Type -->
-                                <Grid ColumnDefinitions="*" ColumnSpacing="6">
+                                <Grid ColumnDefinitions="*"
+                                      ColumnSpacing="6">
                                     <Label Grid.Column="0"
                                            Text="{Binding SourceType}"
                                            FontSize="14"

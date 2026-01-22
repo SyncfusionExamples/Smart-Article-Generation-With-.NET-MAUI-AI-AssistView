@@ -11,7 +11,8 @@
     <Grid Padding="10">
         <Grid>
             <!-- Desktop (WinUI/MacCatalyst) -->
-            <ScrollView Padding="0,0,0,0" IsVisible="{OnPlatform Android=false, iOS=false, WinUI=true, MacCatalyst=true}">
+            <ScrollView Padding="0,0,0,0"
+                        IsVisible="{OnPlatform Android=false, iOS=false, WinUI=true, MacCatalyst=true}">
                 <Border StrokeThickness="0"
                         Background="#FFFFFF"
                         Padding="{OnPlatform Android='12,14',WinUI='22,18'}">
@@ -19,11 +20,12 @@
                         <RoundRectangle CornerRadius="14" />
                     </Border.StrokeShape>
                     <Grid>
-                        <md:SfMarkdownViewer Source="{Binding MarkdownContent}" HeightRequest="600">
+                        <md:SfMarkdownViewer Source="{Binding MarkdownContent}"
+                                             HeightRequest="600">
                             <md:SfMarkdownViewer.Settings>
                                 <md:MarkdownStyleSettings>
                                     <md:MarkdownStyleSettings.CssStyleRules>
-                                                   h1, h2, h3, h4, h5, h6 { font-weight: 700; }
+                                        h1, h2, h3, h4, h5, h6 { font-weight: 700; }
                                                    p, li { font-weight: 400; }
                                                    strong, b { font-weight: 700; }
                                                    body { font-weight: 400; }
@@ -36,16 +38,20 @@
             </ScrollView>
 
             <Grid IsVisible="{OnPlatform Android=true, iOS=false, WinUI=false, MacCatalyst=false}">
-                <Border StrokeThickness="0" Background="#FFFFFF" Padding="12,14">
+                <Border StrokeThickness="0"
+                        Background="#FFFFFF"
+                        Padding="12,14">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="14" />
                     </Border.StrokeShape>
-                    <ScrollView VerticalScrollBarVisibility="Always" HeightRequest="560">
-                        <md:SfMarkdownViewer Source="{Binding MarkdownContent}" VerticalOptions="Fill">
+                    <ScrollView VerticalScrollBarVisibility="Always"
+                                HeightRequest="560">
+                        <md:SfMarkdownViewer Source="{Binding MarkdownContent}"
+                                             VerticalOptions="Fill">
                             <md:SfMarkdownViewer.Settings>
                                 <md:MarkdownStyleSettings>
                                     <md:MarkdownStyleSettings.CssStyleRules>
-                                                    h1, h2, h3, h4, h5, h6 { font-weight: 700; }
+                                        h1, h2, h3, h4, h5, h6 { font-weight: 700; }
                                                     p, li { font-weight: 400; }
                                                     strong, b { font-weight: 700; }
                                                     body { font-weight: 400; }
@@ -66,14 +72,15 @@
                         <RoundRectangle CornerRadius="14" />
                     </Border.StrokeShape>
                     <Grid>
-                        <md:SfMarkdownViewer Source="{Binding MarkdownContent}" HeightRequest="600">
+                        <md:SfMarkdownViewer Source="{Binding MarkdownContent}"
+                                             HeightRequest="600">
                             <md:SfMarkdownViewer.Settings>
                                 <md:MarkdownStyleSettings>
                                     <md:MarkdownStyleSettings.CssStyleRules>
-                                                  h1, h2, h3, h4, h5, h6 { font-weight: 700; }
-                                                  p, li { font-weight: 400; }
-                                                  strong, b { font-weight: 700; }
-                                                  body { font-weight: 400; }
+                                        h1, h2, h3, h4, h5, h6 { font-weight: 700; }
+                                        p, li { font-weight: 400; }
+                                        strong, b { font-weight: 700; }
+                                        body { font-weight: 400; }
                                     </md:MarkdownStyleSettings.CssStyleRules>
                                 </md:MarkdownStyleSettings>
                             </md:SfMarkdownViewer.Settings>

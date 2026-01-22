@@ -12,6 +12,8 @@ namespace ArticleGenerationSample.Services
     /// </summary>
     public static partial class ResponseParserService
     {
+        #region Fields
+
         // Common words and source types used by helper methods (static to avoid per-call allocations).
         private static readonly string[] CommonWords = new[]
         {
@@ -21,6 +23,10 @@ namespace ArticleGenerationSample.Services
         };
 
         private static readonly string[] SourceTypes = new[] { "Article", "Documentation", "Tutorial", "Guide", "Blog" };
+
+        #endregion
+
+        #region Methods
 
         /// <summary>
         /// Parses response HTML into structured sections.
@@ -109,8 +115,6 @@ namespace ArticleGenerationSample.Services
 
             return "Details";
         }
-
-
 
         /// <summary>
         /// Generate mock resources based on response content
@@ -351,6 +355,8 @@ namespace ArticleGenerationSample.Services
             sb.Append("</div>");
             return sb.ToString();
         }
+
+        #endregion
 
         // Compiled regex helpers
         [GeneratedRegex("(?=<b>)", RegexOptions.IgnoreCase)]

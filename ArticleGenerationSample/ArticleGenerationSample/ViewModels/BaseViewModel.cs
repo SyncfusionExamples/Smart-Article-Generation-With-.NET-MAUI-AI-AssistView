@@ -10,7 +10,14 @@ namespace ArticleGenerationSample.ViewModels
     {
         #region Fields
 
+        /// <summary>
+        /// Field to store the IsBusy property value
+        /// </summary>
         private bool _isBusy = false;
+
+        /// <summary>
+        /// Field backing the Title property
+        /// </summary>
         private string _title = string.Empty;
 
         #endregion
@@ -65,6 +72,9 @@ namespace ArticleGenerationSample.ViewModels
 
         #region Events
 
+        /// <summary>
+        /// Occurs when a property value changes.
+        /// </summary>
         public event PropertyChangedEventHandler? PropertyChanged;
 
         #endregion
