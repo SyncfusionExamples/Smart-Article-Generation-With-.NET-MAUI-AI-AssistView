@@ -26,9 +26,9 @@
                                 <md:MarkdownStyleSettings>
                                     <md:MarkdownStyleSettings.CssStyleRules>
                                         h1, h2, h3, h4, h5, h6 { font-weight: 700; }
-                                                   p, li { font-weight: 400; }
-                                                   strong, b { font-weight: 700; }
-                                                   body { font-weight: 400; }
+                                        p, li { font-weight: 400; }
+                                        strong, b { font-weight: 700; }
+                                        body { font-weight: 400; }
                                     </md:MarkdownStyleSettings.CssStyleRules>
                                 </md:MarkdownStyleSettings>
                             </md:SfMarkdownViewer.Settings>
@@ -52,9 +52,9 @@
                                 <md:MarkdownStyleSettings>
                                     <md:MarkdownStyleSettings.CssStyleRules>
                                         h1, h2, h3, h4, h5, h6 { font-weight: 700; }
-                                                    p, li { font-weight: 400; }
-                                                    strong, b { font-weight: 700; }
-                                                    body { font-weight: 400; }
+                                        p, li { font-weight: 400; }
+                                        strong, b { font-weight: 700; }
+                                        body { font-weight: 400; }
                                     </md:MarkdownStyleSettings.CssStyleRules>
                                 </md:MarkdownStyleSettings>
                             </md:SfMarkdownViewer.Settings>
