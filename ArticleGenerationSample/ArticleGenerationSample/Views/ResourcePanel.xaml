@@ -93,22 +93,17 @@
                             </Border.StrokeShape>
                             <StackLayout Spacing="4">
                                 <!-- Resource Header with Delete Button -->
-                                <Grid ColumnDefinitions="Auto,*,Auto,Auto"
+                                <Grid ColumnDefinitions="*,Auto,Auto"
                                       ColumnSpacing="4">
-                                    <Label Text="{Binding Icon}"
-                                           FontSize="18"
-                                           FontFamily="Segoe UI Emoji"
-                                           VerticalOptions="Center" />
-                                    <Label Grid.Column="1"
-                                           Text="{Binding Title}"
+                                    <Label Text="{Binding Title}"
                                            FontSize="16"
                                            FontFamily="Roboto-Regular"
-                                           FontAttributes="None"
+                                           FontAttributes="Bold"
                                            TextColor="#1C1B1F"
                                            LineBreakMode="TailTruncation"
                                            VerticalTextAlignment="Start" />
                                     <!-- Relevance score at top-right like card UI -->
-                                    <Label Grid.Column="2"
+                                    <Label Grid.Column="1"
                                            Text="{Binding RelevanceScore, StringFormat='{0}%'}"
                                            FontSize="12"
                                            FontFamily="Roboto-Regular"
@@ -116,7 +111,7 @@
                                            VerticalOptions="Center"
                                            HorizontalOptions="End"
                                            Margin="0,0,6,0" />
-                                    <Label Grid.Column="3"
+                                    <Label Grid.Column="2"
                                            Text="&#xE73C;"
                                            FontFamily="MauiSampleFontIcon"
                                            FontSize="16"
