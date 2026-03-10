@@ -41,11 +41,35 @@ namespace ArticleGenerationSample.ViewModels
         /// Field to backing the HtmlContent property.
         /// </summary>
         private string _htmlContent = string.Empty;
+
+        /// <summary>
+        /// Field to backing the ResearchQuestion property.
+        /// </summary>
         private string _researchQuestion = string.Empty;
+
+        /// <summary>
+        /// Field to backing the SelectedTopic property.
+        /// </summary>
         private string _selectedTopic = string.Empty;
+
+        /// <summary>
+        /// Field to backing the SelectedResourceId property.
+        /// </summary>
         private int _selectedResourceId = -1;
+
+        /// <summary>
+        /// Field to backing the IsAssistVisible property, which controls the visibility of the AssistView overlay on mobile platforms.
+        /// </summary>
         private bool _isAssistVisible = false;
-        internal AzureAIService azureAIService;
+
+        /// <summary>
+        /// Represents the Azure AI service instance used for performing AI-related operations.
+        /// </summary>
+        internal ArticleGenerationSample.Services.IAzureAIService azureAIService;
+
+        /// <summary>
+        /// Field to manage the collection of resources extracted from AI responses and user interactions.
+        /// </summary>
         private ResourcesService _resourcesService;
 
         #endregion
@@ -53,26 +77,34 @@ namespace ArticleGenerationSample.ViewModels
         #region Constructor
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ArticleViewModel"/> class.
+        /// Initializes a new instance of the <see cref="ArticleViewModel"/> class using DI.
         /// </summary>
-        public ArticleViewModel()
+        /// <param name="azureAIService">Injected <see cref="IAzureAIService"/> implementation.</param>
+        public ArticleViewModel(ArticleGenerationSample.Services.IAzureAIService azureAIService)
         {
-            this.azureAIService = new AzureAIService();
+            this.azureAIService = azureAIService;
             this.messages = new ObservableCollection<IAssistItem>();
             this.resources = new ObservableCollection<Models.ResourceItem>();
             this.topics = new ObservableCollection<string>();
             this._resourcesService = new ResourcesService();
-            
-            this.AssistViewRequestCommand = new Command<object>(ExecuteRequestCommand);
+            this.AssistViewRequestCommand = new Command(async (o) => await ExecuteRequestCommand(o));
             this.LoadedCommand = new Command(ExecuteLoadCommand);
             this.RegenerateCommand = new Command(ExecuteRegenerateCommand);
             this.ResourceSelectedCommand = new Command<Models.ResourceItem>(ExecuteResourceSelected);
-            this.DeleteResourceCommand = new Command<Models.ResourceItem>(ExecuteDeleteResource);
-            this.AddResourceCommand = new Command(ExecuteAddResource);
-            this.OpenUrlCommand = new Command<string>(ExecuteOpenUrl);
+            this.DeleteResourceCommand = new Command(async (o) => await ExecuteDeleteResource(o));
+            this.AddResourceCommand = new Command(async (o) => await ExecuteAddResource(o));
+            this.OpenUrlCommand = new Command(async (o) => await ExecuteOpenUrl(o));
             this.SelectTopicCommand = new Command<string>(ExecuteSelectTopic);
             this.ToggleAssistCommand = new Command(() => IsAssistVisible = !IsAssistVisible);
             this.AddInitialResponseText();
+        }
+
+        /// <summary>
+        /// Parameterless fallback constructor for XAML and previews. Delegates to DI constructor with a local instance.
+        /// </summary>
+        public ArticleViewModel()
+            : this(new AzureAIService())
+        {
         }
 
         /// <summary>
@@ -88,59 +120,59 @@ namespace ArticleGenerationSample.ViewModels
             this.messages.Add(greetingItem);
         }
 
-		#endregion
+        #endregion
 
-		#region Commands
+        #region Commands
 
         /// <summary>
         /// Handles view loaded/initialized events.
         /// </summary>
-        public ICommand LoadedCommand { get; set; }
+        public ICommand LoadedCommand { get; }
 
         /// <summary>
         /// Fired when the AssistView submits a user request.
         /// </summary>
-        public ICommand AssistViewRequestCommand { get; set; }
+        public ICommand AssistViewRequestCommand { get; }
 
         /// <summary>
         /// Regenerates the AI response for the current prompt.
         /// </summary>
-        public ICommand RegenerateCommand { get; set; }
+        public ICommand RegenerateCommand { get; }
 
         /// <summary>
         /// Handles selection of a resource item.
         /// </summary>
-        public ICommand ResourceSelectedCommand { get; set; }
-        
+        public ICommand ResourceSelectedCommand { get; }
+
         /// <summary>
         /// Toggles visibility of the AssistView overlay on mobile platforms.
         /// </summary>
-        public ICommand ToggleAssistCommand { get; set; }
+        public ICommand ToggleAssistCommand { get; }
 
         /// <summary>
         /// Deletes a resource from the collection.
         /// </summary>
-        public ICommand DeleteResourceCommand { get; set; }
+        public ICommand DeleteResourceCommand { get; }
 
         /// <summary>
         /// Opens the add resource dialog and appends a new resource.
         /// </summary>
-        public ICommand AddResourceCommand { get; set; }
+        public ICommand AddResourceCommand { get; }
 
         /// <summary>
         /// Opens a URL in the system browser.
         /// </summary>
-        public ICommand OpenUrlCommand { get; set; }
+        public ICommand OpenUrlCommand { get; }
 
         /// <summary>
         /// Sets the research question from a selected topic.
         /// </summary>
-        public ICommand SelectTopicCommand { get; set; }
+        public ICommand SelectTopicCommand { get; }
 
         #endregion
 
         #region Properties
-        
+
         /// <summary>
         /// Gets or sets the collection of research resources displayed in the UI.
         /// </summary>
@@ -287,7 +319,7 @@ namespace ArticleGenerationSample.ViewModels
             get
             {
                 if (string.IsNullOrWhiteSpace(HtmlContent))
-                    return "Generate Articles"; 
+                    return "Generate Articles";
 
                 var cleanedResponse = RemoveHtmlTags(HtmlContent);
                 cleanedResponse = cleanedResponse.Replace("\n", " ").Trim();
@@ -315,7 +347,7 @@ namespace ArticleGenerationSample.ViewModels
         /// Handles AssistView request submission and triggers result generation.
         /// </summary>
         /// <param name="obj">The request event args containing the AssistItem.</param>
-        private async void ExecuteRequestCommand(object obj)
+        private async Task ExecuteRequestCommand(object obj)
         {
             var request = (obj as Syncfusion.Maui.AIAssistView.RequestEventArgs)?.RequestItem;
             if (request != null)
@@ -333,7 +365,7 @@ namespace ArticleGenerationSample.ViewModels
         /// <param name="obj">Optional parameter from the command binding.</param>
         private void ExecuteLoadCommand(object obj)
         {
-            azureAIService = new AzureAIService();
+            // AzureAIService is provided via DI; do not re-instantiate here.
         }
 
         /// <summary>
@@ -367,21 +399,25 @@ namespace ArticleGenerationSample.ViewModels
         /// <summary>
         /// Removes the specified resource from the collection.
         /// </summary>
-        /// <param name="resource">The resource to remove.</param>
-        private void ExecuteDeleteResource(Models.ResourceItem resource)
+        /// <param name="obj">The resource object to remove.</param>
+        private async Task ExecuteDeleteResource(object obj)
         {
+            var resource = obj as Models.ResourceItem;
             if (resource != null)
             {
                 Resources.Remove(resource);
             }
+
+            await Task.CompletedTask;
         }
 
         /// <summary>
         /// Opens the specified URL using the system browser.
         /// </summary>
         /// <param name="url">The URL to open.</param>
-        private async void ExecuteOpenUrl(string url)
+        private async Task ExecuteOpenUrl(object obj)
         {
+            var url = obj as string;
             if (!string.IsNullOrEmpty(url))
             {
                 try
@@ -398,7 +434,8 @@ namespace ArticleGenerationSample.ViewModels
                     var mainPage = Application.Current?.Windows[0].Page;
                     if (mainPage != null)
                     {
-                        await mainPage.DisplayAlertAsync("Error", $"Failed to open URL: {ex.Message}", "OK");
+                        await MainThread.InvokeOnMainThreadAsync(() =>
+                            mainPage.DisplayAlertAsync("Error", $"Failed to open URL: {ex.Message}", "OK"));
                     }
                 }
             }
@@ -407,7 +444,7 @@ namespace ArticleGenerationSample.ViewModels
         /// <summary>
         /// Opens the add-resource dialog and appends the result to the collection.
         /// </summary>
-        private async void ExecuteAddResource()
+        private async Task ExecuteAddResource(object obj)
         {
             var mainPage = Application.Current?.Windows[0].Page;
 
@@ -415,10 +452,11 @@ namespace ArticleGenerationSample.ViewModels
             {
                 if (mainPage != null)
                 {
-                    await mainPage.DisplayAlertAsync(
-                        "No Valid Response",
-                        "Please generate a valid article first before adding sources.",
-                        "OK");
+                    await MainThread.InvokeOnMainThreadAsync(() =>
+                        mainPage.DisplayAlertAsync(
+                            "No Valid Response",
+                            "Please generate a valid article first before adding sources.",
+                            "OK"));
                 }
                 return;
             }
@@ -452,7 +490,7 @@ namespace ArticleGenerationSample.ViewModels
             if (!string.IsNullOrEmpty(topic))
             {
                 SelectedTopic = topic;
-                
+
                 // Add to topics if not already there
                 if (!Topics.Contains(topic))
                 {
@@ -490,13 +528,13 @@ namespace ArticleGenerationSample.ViewModels
         private async Task GetResult(object inputQuery)
         {
             await Task.Delay(1000).ConfigureAwait(true);
-            
+
             var request = inputQuery as AssistItem;
             if (request == null)
                 return;
 
             IsBusy = true;
-            
+
             try
             {
                 var userAIPrompt = this.GetUserAIPrompt(request.Text);
@@ -513,7 +551,7 @@ namespace ArticleGenerationSample.ViewModels
                     // Extract resources from valid response
                     var extractedResources = ResponseParserService.ExtractResourcesFromResponse(response, request.Text);
                     _resourcesService.UpdateResources(extractedResources);
-                    
+
                     // Update resources collection
                     Resources.Clear();
                     foreach (var resource in _resourcesService.GetResources())
@@ -528,12 +566,12 @@ namespace ArticleGenerationSample.ViewModels
                 }
 
                 var responseItem = new AssistItem
-                { 
-                    Text = $"I've created a response for your request titled '{request.Text}'. Please refer to it and let me know if you need any further edits or changes!.", 
+                {
+                    Text = $"I've created a response for your request titled '{request.Text}'. Please refer to it and let me know if you need any further edits or changes!.",
                     ShowAssistItemFooter = false,
                     RequestItem = inputQuery
                 };
-                
+
                 this.Messages.Add(responseItem);
             }
             finally

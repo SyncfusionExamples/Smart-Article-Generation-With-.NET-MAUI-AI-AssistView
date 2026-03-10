@@ -14,12 +14,12 @@ namespace ArticleGenerationSample.Services
         /// <summary>
         /// The EndPoint
         /// </summary>
-        private const string endpoint = "https://testingopen.openai.azure.com";
+        private const string endpoint = "END_POINT";
 
         /// <summary>
         /// The Deployment name
         /// </summary>
-        internal const string deploymentName = "gpt-4.1";
+        internal const string deploymentName = "DEPLOYMENT_NAME";
 
         /// <summary>
         /// The Image Deployment name
@@ -29,7 +29,7 @@ namespace ArticleGenerationSample.Services
         /// <summary>
         /// The API key
         /// </summary>
-        private const string key = "hLGD4wgBAVsB4sWMom6ijN7j6JpEcV4Gw1nFWfxLpOlx5NpfpX7JJQQJ99BKACmepeSXJ3w3AAABACOGLIKd";
+        private const string key = "KEY";
 
         /// <summary>
         /// The chat completion service

@@ -11,6 +11,8 @@ namespace ArticleGenerationSample.Models
     /// </summary>
     public class ResponseSection
     {
+        #region Properties
+
         /// <summary>
         /// Gets or sets the section heading
         /// </summary>
@@ -35,5 +37,7 @@ namespace ArticleGenerationSample.Models
         /// Gets or sets whether the section is expanded
         /// </summary>
         public bool IsExpanded { get; set; } = true;
+
+        #endregion
     }
 }

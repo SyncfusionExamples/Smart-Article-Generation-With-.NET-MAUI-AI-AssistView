@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using ArticleGenerationSample.Services;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.DependencyInjection;
 using Syncfusion.Maui.Core.Hosting;
 
 namespace ArticleGenerationSample
@@ -21,6 +23,9 @@ namespace ArticleGenerationSample
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
+
+            // DI registration for Azure AI service (sketch)
+            builder.Services.AddSingleton<IAzureAIService, AzureAIService>();
 
             return builder.Build();
         }

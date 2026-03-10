@@ -5,6 +5,8 @@ namespace ArticleGenerationSample.Models
     /// </summary>
     public class ResourceItem
     {
+        #region Properties
+
         /// <summary>
         /// Gets or sets the unique identifier.
         /// </summary>
@@ -49,5 +51,7 @@ namespace ArticleGenerationSample.Models
         /// Gets or sets the icon/emoji for the resource type.
         /// </summary>
         public string Icon { get; set; } = "📄";
+
+        #endregion
     }
 }
