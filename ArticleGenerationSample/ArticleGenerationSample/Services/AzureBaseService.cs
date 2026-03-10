@@ -257,7 +257,7 @@ namespace ArticleGenerationSample.Services
             handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) =>
             {
                 // Validate that we're connecting to a trusted endpoint
-                if (message.RequestUri?.Host == "testingopen.openai.azure.com")
+                if (message.RequestUri?.Host == "END_POINT")
                 {
                     return errors == System.Net.Security.SslPolicyErrors.None;
                 }
