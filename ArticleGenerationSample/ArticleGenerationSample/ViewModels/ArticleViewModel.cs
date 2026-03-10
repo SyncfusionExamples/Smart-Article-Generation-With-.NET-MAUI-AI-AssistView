@@ -88,7 +88,6 @@ namespace ArticleGenerationSample.ViewModels
             this.topics = new ObservableCollection<string>();
             this._resourcesService = new ResourcesService();
             this.AssistViewRequestCommand = new Command(async (o) => await ExecuteRequestCommand(o));
-            this.LoadedCommand = new Command(ExecuteLoadCommand);
             this.RegenerateCommand = new Command(ExecuteRegenerateCommand);
             this.ResourceSelectedCommand = new Command<Models.ResourceItem>(ExecuteResourceSelected);
             this.DeleteResourceCommand = new Command(async (o) => await ExecuteDeleteResource(o));
@@ -123,11 +122,6 @@ namespace ArticleGenerationSample.ViewModels
         #endregion
 
         #region Commands
-
-        /// <summary>
-        /// Handles view loaded/initialized events.
-        /// </summary>
-        public ICommand LoadedCommand { get; }
 
         /// <summary>
         /// Fired when the AssistView submits a user request.
@@ -357,15 +351,6 @@ namespace ArticleGenerationSample.ViewModels
 
                 await this.GetResult(request).ConfigureAwait(true);
             }
-        }
-
-        /// <summary>
-        /// Initializes required services when the view loads.
-        /// </summary>
-        /// <param name="obj">Optional parameter from the command binding.</param>
-        private void ExecuteLoadCommand(object obj)
-        {
-            // AzureAIService is provided via DI; do not re-instantiate here.
         }
 
         /// <summary>
