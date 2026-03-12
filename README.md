@@ -68,8 +68,7 @@ Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("YOUR_LICENSE_KEY
 
 ## Screenshot
 
-> Article Generation with Syncfusion .NET MAUI AIAssistView
-> ![Article Generation in .NET MAUI ImageEditor](ArticleGeneration.gif)
+![Article Generation in .NET MAUI ImageEditor](ArticleGeneration.gif)
 
 ## Resources
 
