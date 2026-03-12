@@ -1,4 +1,4 @@
-namespace ArticleGenerationSample.Views;
+namespace ArticleGenerationSample;
 
 /// <summary>
 /// Modal dialog to collect a resource URL, title, and description.

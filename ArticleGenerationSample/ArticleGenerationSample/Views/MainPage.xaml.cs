@@ -1,7 +1,7 @@
 using Microsoft.Maui.Controls;
 using Syncfusion.Maui.AIAssistView;
 
-namespace ArticleGenerationSample.Views
+namespace ArticleGenerationSample
 {
     /// <summary>
     /// Main page hosting the two-column layout and the custom AI AssistView.

@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 
-namespace ArticleGenerationSample.Services
+namespace ArticleGenerationSample
 {
     /// <summary>
     /// Abstraction for Azure AI operations used by view models and other services.

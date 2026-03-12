@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace ArticleGenerationSample.ViewModels
+namespace ArticleGenerationSample
 {
     /// <summary>
     /// Base ViewModel class implementing INotifyPropertyChanged

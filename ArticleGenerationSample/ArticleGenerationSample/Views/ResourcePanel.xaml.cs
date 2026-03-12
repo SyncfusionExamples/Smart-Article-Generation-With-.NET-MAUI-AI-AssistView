@@ -1,4 +1,4 @@
-namespace ArticleGenerationSample.Views;
+namespace ArticleGenerationSample;
 
 /// <summary>
 /// Displays and manages user-added research sources, including add, delete,
