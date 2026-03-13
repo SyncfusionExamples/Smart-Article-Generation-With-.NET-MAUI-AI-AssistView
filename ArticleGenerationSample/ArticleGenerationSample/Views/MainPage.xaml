@@ -3,11 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:syncfusion="clr-namespace:Syncfusion.Maui.AIAssistView;assembly=Syncfusion.Maui.AIAssistView"
              xmlns:shimmer="clr-namespace:Syncfusion.Maui.Shimmer;assembly=Syncfusion.Maui.Core"
-             xmlns:views="clr-namespace:ArticleGenerationSample"
-             xmlns:conv="clr-namespace:ArticleGenerationSample"
+             xmlns:local="clr-namespace:ArticleGenerationSample"
              x:Class="ArticleGenerationSample.MainPage">
     <ContentPage.BindingContext>
-        <conv:ArticleViewModel x:Name="viewModel" />
+        <local:ArticleViewModel x:Name="viewModel" />
     </ContentPage.BindingContext>
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -41,11 +40,11 @@
     <Grid>
         <!-- Desktop (WinUI + MacCatalyst): existing two-panel template -->
         <Grid IsVisible="{OnPlatform Android=false, iOS=false, WinUI=true, MacCatalyst=true}">
-            <views:CustomAssistView ShowHeader="False"
+            <local:CustomAssistView ShowHeader="False"
                                     Padding="16,18,16,18"
                                     AssistItems="{Binding Messages}"
                                     RequestCommand="{Binding AssistViewRequestCommand}">
-                <views:CustomAssistView.ControlTemplate>
+                <local:CustomAssistView.ControlTemplate>
                     <ControlTemplate>
                         <ContentView BindingContext="{TemplateBinding BindingContext}">
                             <ContentView.Content>
@@ -91,7 +90,7 @@
                                             <ScrollView Padding="16,0,16,0">
                                                 <StackLayout Spacing="14"
                                                              Padding="0,12,0,24">
-                                                    <views:ResourcePanel Padding="0"
+                                                    <local:ResourcePanel Padding="0"
                                                                          Margin="0,0,0,0"
                                                                          BindingContext="{TemplateBinding BindingContext}"
                                                                          VerticalOptions="Start" />
@@ -103,7 +102,7 @@
                                                                TextColor="#333333"
                                                                Margin="0,0,0,0"
                                                                Padding="0,6,0,4" />
-                                                        <views:ChatView BindingContext="{TemplateBinding BindingContext}"
+                                                        <local:ChatView BindingContext="{TemplateBinding BindingContext}"
                                                                         VerticalOptions="Start" />
                                                     </StackLayout>
                                                 </StackLayout>
@@ -123,8 +122,8 @@
                             </ContentView.Content>
                         </ContentView>
                     </ControlTemplate>
-                </views:CustomAssistView.ControlTemplate>
-            </views:CustomAssistView>
+                </local:CustomAssistView.ControlTemplate>
+            </local:CustomAssistView>
         </Grid>
 
         <!-- Mobile (Android + iOS): single-column content with floating Assist button and overlay -->
@@ -165,7 +164,7 @@
                             BackgroundColor="#F7F2FB"
                             Padding="8"
                             Margin="0">
-                        <views:ResourcePanel BindingContext="{Binding}" />
+                        <local:ResourcePanel BindingContext="{Binding}" />
                     </Border>
 
                     <!-- Article Draft Section with background -->
@@ -180,7 +179,7 @@
                                    FontFamily="Roboto-Regular"
                                    TextColor="#333333"
                                    Padding="0,6,0,4" />
-                            <views:ChatView />
+                            <local:ChatView />
                         </StackLayout>
                     </Border>
                 </StackLayout>
