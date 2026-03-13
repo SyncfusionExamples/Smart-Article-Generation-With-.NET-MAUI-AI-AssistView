@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:conv="clr-namespace:ArticleGenerationSample"
+             xmlns:local="clr-namespace:ArticleGenerationSample"
              xmlns:chip="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
              x:Class="ArticleGenerationSample.ResourcePanel">
     <ContentView.Resources>
         <ResourceDictionary>
-            <conv:InverseBoolConverter x:Key="InverseBoolConverter" />
-            <conv:IsNotNullOrEmptyConverter x:Key="IsNotNullOrEmptyConverter" />
+            <local:InverseBoolConverter x:Key="InverseBoolConverter" />
+            <local:IsNotNullOrEmptyConverter x:Key="IsNotNullOrEmptyConverter" />
         </ResourceDictionary>
     </ContentView.Resources>
     <!-- Prevent vertical stretching in desktop by content-wrapping the panel -->
@@ -119,7 +119,7 @@
                                            HorizontalOptions="End"
                                            Padding="6,0">
                                         <Label.GestureRecognizers>
-                                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type conv:ResourcePanel}}, Path=BindingContext.DeleteResourceCommand}"
+                                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type local:ResourcePanel}}, Path=BindingContext.DeleteResourceCommand}"
                                                                   CommandParameter="{Binding .}" />
                                         </Label.GestureRecognizers>
                                     </Label>
@@ -145,7 +145,7 @@
                                        IsVisible="{Binding Url, Converter={StaticResource IsNotNullOrEmptyConverter}}"
                                        MaxLines="1">
                                     <Label.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type conv:ResourcePanel}}, Path=BindingContext.OpenUrlCommand}"
+                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type local:ResourcePanel}}, Path=BindingContext.OpenUrlCommand}"
                                                               CommandParameter="{Binding Url}" />
                                     </Label.GestureRecognizers>
                                 </Label>
