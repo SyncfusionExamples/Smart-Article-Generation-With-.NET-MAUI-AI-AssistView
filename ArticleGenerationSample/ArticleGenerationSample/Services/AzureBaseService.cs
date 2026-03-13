@@ -2,7 +2,7 @@ using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using System.Net;
 
-namespace ArticleGenerationSample.Services
+namespace ArticleGenerationSample
 {
     /// <summary>
     /// Abstract base class for Azure AI services
@@ -49,12 +49,12 @@ namespace ArticleGenerationSample.Services
         /// <summary>
         /// Field to store whether the credentials are valid
         /// </summary>
-        private static bool isCredentialValid = false;
+        private bool isCredentialValid = false;
 
         /// <summary>
         /// Field to store whether the credentials have already been validated
         /// </summary>
-        private static bool isAlreadyValidated = false;
+        private bool isAlreadyValidated = false;
 
         /// <summary>
         /// Field to store the URI result
@@ -69,7 +69,7 @@ namespace ArticleGenerationSample.Services
 
         public AzureBaseService()
         {
-            ValidateCredential();
+            _ = ValidateCredential();
         }
 
         #region Properties
@@ -78,7 +78,7 @@ namespace ArticleGenerationSample.Services
         /// Gets or Set a value indicating whether an credentials are valid or not.
         /// Returns <c>true</c> if the credentials are valid; otherwise, <c>false</c>.
         /// </summary>
-        public static bool IsCredentialValid
+        public bool IsCredentialValid
         {
             get
             {
@@ -142,7 +142,7 @@ namespace ArticleGenerationSample.Services
         /// <summary>
         /// Validate Azure Credentials
         /// </summary>
-        private async void ValidateCredential()
+        private async Task ValidateCredential()
         {
             // Defer any UI until a page is ready; focus on wiring the kernel so AI can run
             #region Azure OpenAI

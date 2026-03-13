@@ -1,4 +1,3 @@
-using ArticleGenerationSample.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -6,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AssistViewArticleGenerationSample.Services
+namespace ArticleGenerationSample
 {
     /// <summary>
     /// Service for managing research resources.

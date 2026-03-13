@@ -1,7 +1,7 @@
 using System;
 using System.Globalization;
 
-namespace ArticleGenerationSample.Converters
+namespace ArticleGenerationSample
 {
     /// <summary>
     /// Converts a boolean into a GridLength, expanding to a fixed width when true and Star otherwise.

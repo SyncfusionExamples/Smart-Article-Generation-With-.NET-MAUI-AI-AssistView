@@ -3,12 +3,8 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.Linq;
 using Syncfusion.Maui.AIAssistView;
-using ArticleGenerationSample.Models;
-using AssistViewArticleGenerationSample.Services;
-using ArticleGenerationSample.Views;
-using ArticleGenerationSample.Services;
 
-namespace ArticleGenerationSample.ViewModels
+namespace ArticleGenerationSample
 {
     /// <summary>
     /// Provides state and commands for generating articles, rendering content, and managing resources.
@@ -25,7 +21,7 @@ namespace ArticleGenerationSample.ViewModels
         /// <summary>
         /// Field to backing the Resources property.
         /// </summary>
-        private ObservableCollection<Models.ResourceItem> resources;
+        private ObservableCollection<ResourceItem> resources;
 
         /// <summary>
         /// Field to backing the Topics property.
@@ -65,7 +61,7 @@ namespace ArticleGenerationSample.ViewModels
         /// <summary>
         /// Represents the Azure AI service instance used for performing AI-related operations.
         /// </summary>
-        internal ArticleGenerationSample.Services.IAzureAIService azureAIService;
+        internal IAzureAIService azureAIService;
 
         /// <summary>
         /// Field to manage the collection of resources extracted from AI responses and user interactions.
@@ -80,11 +76,11 @@ namespace ArticleGenerationSample.ViewModels
         /// Initializes a new instance of the <see cref="ArticleViewModel"/> class using DI.
         /// </summary>
         /// <param name="azureAIService">Injected <see cref="IAzureAIService"/> implementation.</param>
-        public ArticleViewModel(ArticleGenerationSample.Services.IAzureAIService azureAIService)
+        public ArticleViewModel(IAzureAIService azureAIService)
         {
             this.azureAIService = azureAIService;
             this.messages = new ObservableCollection<IAssistItem>();
-            this.resources = new ObservableCollection<Models.ResourceItem>();
+            this.resources = new ObservableCollection<ResourceItem>();
             this.topics = new ObservableCollection<string>();
             this._resourcesService = new ResourcesService();
             this.AssistViewRequestCommand = new Command(async (o) => await ExecuteRequestCommand(o));
@@ -119,9 +115,9 @@ namespace ArticleGenerationSample.ViewModels
             this.messages.Add(greetingItem);
         }
 
-        #endregion
+		#endregion
 
-        #region Commands
+		#region Commands
 
         /// <summary>
         /// Fired when the AssistView submits a user request.
@@ -137,7 +133,7 @@ namespace ArticleGenerationSample.ViewModels
         /// Handles selection of a resource item.
         /// </summary>
         public ICommand ResourceSelectedCommand { get; }
-
+        
         /// <summary>
         /// Toggles visibility of the AssistView overlay on mobile platforms.
         /// </summary>
@@ -166,11 +162,11 @@ namespace ArticleGenerationSample.ViewModels
         #endregion
 
         #region Properties
-
+        
         /// <summary>
         /// Gets or sets the collection of research resources displayed in the UI.
         /// </summary>
-        public ObservableCollection<Models.ResourceItem> Resources
+        public ObservableCollection<ResourceItem> Resources
         {
             get => this.resources;
             set
@@ -313,7 +309,7 @@ namespace ArticleGenerationSample.ViewModels
             get
             {
                 if (string.IsNullOrWhiteSpace(HtmlContent))
-                    return "Generate Articles";
+                    return "Generate Articles"; 
 
                 var cleanedResponse = RemoveHtmlTags(HtmlContent);
                 cleanedResponse = cleanedResponse.Replace("\n", " ").Trim();
@@ -351,7 +347,7 @@ namespace ArticleGenerationSample.ViewModels
 
                 await this.GetResult(request).ConfigureAwait(true);
             }
-        }
+  }
 
         /// <summary>
         /// Shows a simple notification indicating regenerate action.
@@ -373,7 +369,7 @@ namespace ArticleGenerationSample.ViewModels
         /// Handles selection of a resource from the list.
         /// </summary>
         /// <param name="resource">The selected resource.</param>
-        private void ExecuteResourceSelected(Models.ResourceItem resource)
+        private void ExecuteResourceSelected(ResourceItem resource)
         {
             if (resource != null)
             {
@@ -450,7 +446,7 @@ namespace ArticleGenerationSample.ViewModels
 
             if (!string.IsNullOrEmpty(title))
             {
-                var newResource = new Models.ResourceItem
+                var newResource = new ResourceItem
                 {
                     Id = Resources.Count + 1,
                     Icon = "🌐",
@@ -475,7 +471,7 @@ namespace ArticleGenerationSample.ViewModels
             if (!string.IsNullOrEmpty(topic))
             {
                 SelectedTopic = topic;
-
+                
                 // Add to topics if not already there
                 if (!Topics.Contains(topic))
                 {
@@ -513,13 +509,13 @@ namespace ArticleGenerationSample.ViewModels
         private async Task GetResult(object inputQuery)
         {
             await Task.Delay(1000).ConfigureAwait(true);
-
+            
             var request = inputQuery as AssistItem;
             if (request == null)
                 return;
 
             IsBusy = true;
-
+            
             try
             {
                 var userAIPrompt = this.GetUserAIPrompt(request.Text);
@@ -536,7 +532,7 @@ namespace ArticleGenerationSample.ViewModels
                     // Extract resources from valid response
                     var extractedResources = ResponseParserService.ExtractResourcesFromResponse(response, request.Text);
                     _resourcesService.UpdateResources(extractedResources);
-
+                    
                     // Update resources collection
                     Resources.Clear();
                     foreach (var resource in _resourcesService.GetResources())
@@ -551,12 +547,12 @@ namespace ArticleGenerationSample.ViewModels
                 }
 
                 var responseItem = new AssistItem
-                {
-                    Text = $"I've created a response for your request titled '{request.Text}'. Please refer to it and let me know if you need any further edits or changes!.",
+                { 
+                    Text = $"I've created a response for your request titled '{request.Text}'. Please refer to it and let me know if you need any further edits or changes!.", 
                     ShowAssistItemFooter = false,
                     RequestItem = inputQuery
                 };
-
+                
                 this.Messages.Add(responseItem);
             }
             finally

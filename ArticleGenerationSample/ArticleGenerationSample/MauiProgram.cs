@@ -1,7 +1,7 @@
-﻿using ArticleGenerationSample.Services;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.Logging;
 using Syncfusion.Maui.Core.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using ArticleGenerationSample;
 
 namespace ArticleGenerationSample
 {

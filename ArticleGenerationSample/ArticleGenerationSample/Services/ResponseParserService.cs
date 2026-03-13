@@ -1,11 +1,10 @@
-using ArticleGenerationSample.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace ArticleGenerationSample.Services
+namespace ArticleGenerationSample
 {
     /// <summary>
     /// Service for parsing and structuring AI responses.

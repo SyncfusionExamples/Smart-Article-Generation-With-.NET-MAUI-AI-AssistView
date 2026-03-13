@@ -1,5 +1,4 @@
-﻿using ArticleGenerationSample.Views;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace ArticleGenerationSample
 {

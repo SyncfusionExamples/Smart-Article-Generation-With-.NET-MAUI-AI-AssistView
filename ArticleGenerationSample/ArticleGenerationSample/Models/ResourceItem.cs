@@ -1,4 +1,4 @@
-namespace ArticleGenerationSample.Models
+namespace ArticleGenerationSample
 {
     /// <summary>
     /// Represents a research resource/source.

@@ -2,7 +2,7 @@ using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using System.Diagnostics;
 
-namespace ArticleGenerationSample.Services
+namespace ArticleGenerationSample
 {
     /// <summary>
     /// Service for Azure AI operations.
@@ -12,7 +12,7 @@ namespace ArticleGenerationSample.Services
     /// Service for Azure AI operations leveraging Semantic Kernel. Provides online responses
     /// and falls back to deterministic offline content when credentials are not configured.
     /// </summary>
-    public class AzureAIService : AzureBaseService
+    public class AzureAIService : AzureBaseService, IAzureAIService
     {
         #region Constructor
 
@@ -46,7 +46,7 @@ namespace ArticleGenerationSample.Services
         /// <param name="userPrompt">Original user prompt.</param>
         /// <param name="userAIPrompt">System/user prompt used to guide the AI.</param>
         /// <returns>HTML string to render.</returns>
-        internal async Task<string> GetResultsFromAI(string userPrompt, string userAIPrompt)
+        public async Task<string> GetResultsFromAI(string userPrompt, string userAIPrompt)
         {
             if (ChatCompletions != null && ChatHistory != null)
             {
