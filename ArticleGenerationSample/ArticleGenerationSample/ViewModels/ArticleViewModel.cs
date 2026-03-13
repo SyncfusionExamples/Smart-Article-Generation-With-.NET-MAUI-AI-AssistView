@@ -120,7 +120,7 @@ namespace ArticleGenerationSample
 		#region Commands
 
         /// <summary>
-        /// Handles view loaded/initialized events.        /// Fired when the AssistView submits a user request.
+        /// Fired when the AssistView submits a user request.
         /// </summary>
         public ICommand AssistViewRequestCommand { get; }
 
