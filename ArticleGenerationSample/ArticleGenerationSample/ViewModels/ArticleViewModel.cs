@@ -3,8 +3,6 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.Linq;
 using Syncfusion.Maui.AIAssistView;
-using ArticleGenerationSample;
-using ArticleGenerationSampl;
 
 namespace ArticleGenerationSample
 {
@@ -63,7 +61,7 @@ namespace ArticleGenerationSample
         /// <summary>
         /// Represents the Azure AI service instance used for performing AI-related operations.
         /// </summary>
-        internal ArticleGenerationSample.IAzureAIService azureAIService;
+        internal IAzureAIService azureAIService;
 
         /// <summary>
         /// Field to manage the collection of resources extracted from AI responses and user interactions.
@@ -78,7 +76,7 @@ namespace ArticleGenerationSample
         /// Initializes a new instance of the <see cref="ArticleViewModel"/> class using DI.
         /// </summary>
         /// <param name="azureAIService">Injected <see cref="IAzureAIService"/> implementation.</param>
-        public ArticleViewModel(ArticleGenerationSample.IAzureAIService azureAIService)
+        public ArticleViewModel(IAzureAIService azureAIService)
         {
             this.azureAIService = azureAIService;
             this.messages = new ObservableCollection<IAssistItem>();
